@@ -2,10 +2,13 @@ package main
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
+
+var counter = 0
 
 func main() {
 	e := echo.New()
@@ -16,5 +19,6 @@ func main() {
 }
 
 func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello from echo!")
+	counter++
+	return c.String(http.StatusOK, "Hello from echo! #"+strconv.Itoa(counter))
 }
