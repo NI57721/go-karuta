@@ -15,9 +15,9 @@ COPY . .
 
 RUN --mount=type=cache,target=/go/pkg/mod/cache \
     --mount=type=cache,target=/go-cache \
-    go build -o bin main.go
+    go build -o bin/server main.go
 
-CMD ["/code/bin"]
+CMD ["/code/bin/server"]
 
 FROM builder as dev-envs
 
@@ -32,6 +32,6 @@ COPY --from=gloursdocker/docker / /
 CMD ["go", "run", "main.go"]
 
 FROM scratch
-COPY --from=builder /code/bin/ /usr/local/bin/
-CMD ["/usr/local/bin/"]
+COPY --from=builder /code/bin/server /usr/local/bin/server
+CMD ["/usr/local/bin/server"]
 
