@@ -15,6 +15,10 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.GET("/", hello)
+	echo.NotFoundHandler = func(c echo.Context) error {
+		return c.String(http.StatusNotFound, "Not found. Yeah.")
+	}
+
 	e.Logger.Fatal(e.Start("0.0.0.0:8080"))
 }
 
